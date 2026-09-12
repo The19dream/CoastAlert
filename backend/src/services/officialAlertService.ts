@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import OfficialAlert, { IOfficialAlert } from '../models/OfficialAlert';
 import { INDIA_CITY_MAP, haversineKm } from '../utils/indiaRegions';
 import { sendSmsAlertToSubscribedUsers } from './smsService';

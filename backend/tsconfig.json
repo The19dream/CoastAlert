@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "module": "commonjs",
-    "lib": ["es2022", "dom"],
+    "module": "Node16",
+    "lib": [
+      "es2022",
+      "dom"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -10,9 +13,25 @@
     "outDir": "./dist",
     "rootDir": "./",
     "resolveJsonModule": true,
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "moduleResolution": "node16",
+    "baseUrl": ".",
+    "paths": {
+      "@x402/avm/exact/server": [
+        "node_modules/@x402/avm/dist/cjs/exact/server/index.d.ts"
+      ],
+      "@x402/core/server": [
+        "node_modules/@x402/core/dist/cjs/server/index.d.ts"
+      ]
+    }
   },
-  "include": ["src/**/*", "seed.ts"],
+  "include": [
+    "src/**/*",
+    "seed.ts"
+  ],
   "exclude": [
     "src/test-api.ts",
     "src/test-jwt-mongo.ts",

@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import type { RawPost } from '../types/social';
 
 const ENABLE_TWITTER_SOCIAL = process.env.ENABLE_TWITTER_SOCIAL === 'true';

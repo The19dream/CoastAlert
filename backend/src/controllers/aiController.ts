@@ -52,7 +52,7 @@ export const chatCommandCenter = async (req: Request, res: Response): Promise<vo
     const qLower = question.toLowerCase();
 
     // ── 1. LOOK UP USER'S REGION IN THE COMPREHENSIVE INDIA MAP ──────────
-    const { getRegionInfo, haversineKm } = await import('../utils/indiaRegions');
+    const { getRegionInfo, haversineKm } = await import('../utils/indiaRegions.js');
     const regionInfo = getRegionInfo(region);
 
     // Coordinates — use GPS coords from client if available, else look up from map

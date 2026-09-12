@@ -4,6 +4,9 @@ import cors from 'cors';
 import path from 'path';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
+import { paymentMiddleware } from '@x402/express';
+import { x402Server, x402Routes } from './config/x402';
+
 
 // Load environment variables
 dotenv.config();
@@ -18,7 +21,7 @@ import notificationRoutes from './routes/notificationRoutes';
 import twilioRoutes from './routes/twilioRoutes';
 import aiRoutes from './routes/aiRoutes';
 import { syncOfficialAlerts } from './services/officialAlertService';
-
+import agentRoutes from './routes/agentRoutes';
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/coastalert';
@@ -48,6 +51,9 @@ app.use('/api/official', officialRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/twilio', twilioRoutes);
 app.use('/api/ai', aiRoutes);
+app.use(paymentMiddleware(x402Routes, x402Server));
+app.use('/api/agent', agentRoutes);
+
 
 // Base Route
 app.get('/', (req: Request, res: Response) => {
@@ -58,7 +64,14 @@ app.get('/', (req: Request, res: Response) => {
     timestamp: new Date()
   });
 });
-
+// Health Check
+app.get('/api/health', (req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    service: 'CoastAlert API',
+    timestamp: new Date()
+  });
+});
 // 4. Centralized Error Handler Middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error('API Error:', err);
